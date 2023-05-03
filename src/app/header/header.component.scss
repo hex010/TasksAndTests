@@ -1,0 +1,7 @@
+li > a.active { 
+    color: #F97924 /* * color for active links */
+}
+
+li > a:not(.active) {
+    color: white; /* color for inactive links */
+  }
