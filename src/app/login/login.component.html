@@ -1,11 +1,25 @@
 <div class="login-form">
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
       <h2 class="text-center text-white">Prisijungimo forma</h2>       
       <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Vartotojo vardas" required="required">
+          <input type="text" class="form-control" formControlName="username" placeholder="Vartotojo vardas" required="required">
+          <div *ngIf="submitted && loginForm.controls['username'].errors" class="text-danger">
+            <p *ngIf="loginForm.get('username')?.hasError('required')">Vartotojo vardas yra privalomas.</p>
+            <p *ngIf="loginForm.get('username')?.hasError('minlength')">Vartotojo vardas turi būti ne trumpesnis nei 3 simboliai.</p>
+           </div>
       </div>
       <div class="mb-3">
-          <input type="password" class="form-control" placeholder="Slaptažodis" required="required">
+          <input type="password" class="form-control" formControlName="password" placeholder="Slaptažodis" required="required">
+          <div *ngIf="submitted && loginForm.controls['password'].errors" class="text-danger">
+            <p *ngIf="loginForm.get('password')?.hasError('required')">Slaptažodžis yra privalomas.</p>
+            <p *ngIf="loginForm.get('password')?.hasError('minlength')">Slaptažodis turi būti ne trumpesnis nei 5 simboliai.</p>
+            <p *ngIf="loginForm.get('password')?.hasError('pattern')">Slaptažodis turi turėti savyje bent 1 raidę ir 1 skaičių.</p>
+            <!--
+            <p *ngIf="loginForm.controls['password'].errors['required']">Slaptažodžis yra privalomas.</p>
+            <p *ngIf="loginForm.controls['password'].errors['minlength']">Slaptažodis turi būti ne trumpesnis nei 5 simboliai.</p>
+            <p *ngIf="loginForm.controls['password'].errors['pattern']">Slaptažodis turi turėti savyje bent 1 raidę ir 1 skaičių.</p>
+            -->
+           </div>
       </div>
       <div class="mb-3">
           <button type="submit" class="btn btn-primary w-100">Prisijungti</button>

@@ -1,22 +1,42 @@
 <div class="register-form">
-    <form>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmitRegister()">
         <h2 class="text-center text-white">Registracijos forma</h2>       
         <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Vartotojo vardas" required="required">
+            <input type="text" class="form-control" formControlName="username" placeholder="Vartotojo vardas" required="required">
+            <div *ngIf="submitted && registrationForm.controls['username'].errors" class="text-danger">
+                <p *ngIf="registrationForm.get('username')?.hasError('required')">Vartotojo vardas yra privalomas.</p>
+                <p *ngIf="registrationForm.get('username')?.hasError('minlength')">Vartotojo vardas turi būti ne trumpesnis nei 3 simboliai.</p>
+            </div>
         </div>
         <div class="mb-3">
-            <input type="password" class="form-control" placeholder="El. paštas" required="required">
+            <input type="password" class="form-control" formControlName="email" placeholder="El. paštas" required="required">
+            <div *ngIf="submitted && registrationForm.controls['email'].errors" class="text-danger">
+                <p *ngIf="registrationForm.get('email')?.hasError('required')">El. paštas yra privalomas.</p>
+                <p *ngIf="registrationForm.get('email')?.hasError('email')">El. pašto formatas neteisingas.</p>
+            </div>
         </div>
         <div class="mb-3">
-            <input type="password" class="form-control" placeholder="Slaptažodis" required="required">
+            <input type="password" class="form-control" formControlName="password" placeholder="Slaptažodis" required="required">
+            <div *ngIf="submitted && registrationForm.controls['password'].errors" class="text-danger">
+                <p *ngIf="registrationForm.get('password')?.hasError('required')">Slaptažodžis yra privalomas.</p>
+                <p *ngIf="registrationForm.get('password')?.hasError('minlength')">Slaptažodis turi būti ne trumpesnis nei 5 simboliai.</p>
+                <p *ngIf="registrationForm.get('password')?.hasError('pattern')">Slaptažodis turi turėti savyje bent 1 raidę ir 1 skaičių.</p>
+            </div>
         </div>
         <div class="mb-3">
-            <input type="password" class="form-control" placeholder="Pakartokite slaptažodį" required="required">
+            <input type="password" class="form-control" formControlName="password2" placeholder="Pakartokite slaptažodį" required="required">
+            <div *ngIf="submitted && registrationForm.controls['password2'].errors" class="text-danger">
+                <p *ngIf="registrationForm.get('password2')?.hasError('required')">Prašome pakartotinai įvesti slaptažodį.</p>
+                <p *ngIf="registrationForm.get('password2')?.hasError('passwordsNotSame')">Slaptažodis neatitinka pirminio slaptažodžio.</p>
+            </div>
         </div>
         <div class="form-check d-flex justify-content-center mb-5">
-            <input class="form-check-input me-2" type="checkbox">
+            <input class="form-check-input me-2" formControlName="agreement" type="checkbox">
             <label class="text-white" style="padding-right: 0.5rem;">Sutinku su</label>
             <a href="#">Privatumo politika</a>
+        </div>
+        <div *ngIf="submitted && registrationForm.controls['agreement'].errors" class="text-danger">
+            <p *ngIf="registrationForm.get('agreement')?.hasError('required')">Prašome sutikti su privatumo politika.</p>
         </div>
         <div>
             <button type="submit" class="btn btn-primary w-100">Registruotis</button>
