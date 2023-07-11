@@ -1,16 +1,35 @@
-<header class="p-2 bg-dark text-white">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a routerLink="" class="nav-link px-2" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Pradžia</a></li>
-          <li><a routerLink="tests" class="nav-link px-2" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Testai</a></li>
-          <li><a routerLink="tasks" class="nav-link px-2" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Užduotys</a></li>
+<header class="p-2 bg-dark">
+      <div class="d-flex align-items-center justify-content-between">
+        <ul class="nav">
+          <li routerLinkActive="myactivenavlink" [routerLinkActiveOptions]="{exact:true}">
+            <a [routerLink]="['/']" class="nav-link px-2">Pradžia</a>
+          </li>
+          <li routerLinkActive="myactivenavlink">
+            <a [routerLink]="['/tests']" class="nav-link px-2">Testai</a>
+          </li>
+          <li routerLinkActive="myactivenavlink">
+            <a [routerLink]="['/tasks']" class="nav-link px-2">Užduotys</a>
+          </li>
         </ul>
 
-        <div class="text-end">
-          <button routerLink="login" type="button" class="btn btn-outline-light me-2">Prisijungti</button>
-          <button routerLink="register" type="button" class="btn btn-warning">Registruotis</button>
+        <h3 class="mt-auto mb-auto text-white">Įvairių užduočių svetainė</h3>
+
+        <div class="d-flex">
+          <button [routerLink]="['/login']" type="button" class="btn btn-outline-light me-2">Prisijungti</button>
+          <button [routerLink]="['/register']" type="button" class="btn btn-warning">Registruotis</button>
+
+          <div class="dropdown ms-2 me-2">
+            <a class="dropdown-toggle text-decoration-none" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="assets/images/default-profile.png" width="40" height="40" class="rounded-circle">
+                <span class="text-uppercase">Profilis</span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#"> <i class="bi bi-person-fill"></i>Mano profilis</a></li>
+              <li><a class="dropdown-item" href="#"> <i class="bi bi-gear-fill"></i>Nustatymai</a></li>
+              <li><a class="dropdown-item" href="#"> <i class="bi bi-door-open-fill"></i>Atsijungti</a></li>
+            </ul>
+          </div>
+
         </div>
       </div>
-    </div>
   </header>

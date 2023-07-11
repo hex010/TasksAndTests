@@ -1,7 +1,9 @@
-li > a.active { 
-    color: #F97924 /* * color for active links */
+.nav a {
+    color: white;
 }
 
-li > a:not(.active) {
-    color: white; /* color for inactive links */
-  }
+.myactivenavlink a {
+    font-weight: bold;
+    color: #F97924;
+    cursor: default;
+}

@@ -10,7 +10,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 export class RegisterComponent {
   registrationForm!: FormGroup; //! - not null
   submitted = false;
-  get f() { return this.registrationForm.controls; }
+
   constructor( 
     private formBuilder: FormBuilder
   ) {}
