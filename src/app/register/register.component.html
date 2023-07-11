@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <input type="password" class="form-control" formControlName="email" placeholder="El. paštas" required="required">
+            <input type="email" class="form-control" formControlName="email" placeholder="El. paštas" required="required">
             <div *ngIf="submitted && registrationForm.controls['email'].errors" class="text-danger">
                 <p *ngIf="registrationForm.get('email')?.hasError('required')">El. paštas yra privalomas.</p>
                 <p *ngIf="registrationForm.get('email')?.hasError('email')">El. pašto formatas neteisingas.</p>
@@ -20,14 +20,16 @@
             <div *ngIf="submitted && registrationForm.controls['password'].errors" class="text-danger">
                 <p *ngIf="registrationForm.get('password')?.hasError('required')">Slaptažodžis yra privalomas.</p>
                 <p *ngIf="registrationForm.get('password')?.hasError('minlength')">Slaptažodis turi būti ne trumpesnis nei 5 simboliai.</p>
-                <p *ngIf="registrationForm.get('password')?.hasError('pattern')">Slaptažodis turi turėti savyje bent 1 raidę ir 1 skaičių.</p>
+                <p *ngIf="registrationForm.get('password')?.hasError('atLeastOneLetterAndNumber')">Slaptažodis turi turėti savyje bent 1 raidę ir 1 skaičių.</p>
             </div>
         </div>
         <div class="mb-3">
             <input type="password" class="form-control" formControlName="password2" placeholder="Pakartokite slaptažodį" required="required">
             <div *ngIf="submitted && registrationForm.controls['password2'].errors" class="text-danger">
                 <p *ngIf="registrationForm.get('password2')?.hasError('required')">Prašome pakartotinai įvesti slaptažodį.</p>
-                <p *ngIf="registrationForm.get('password2')?.hasError('passwordsNotSame')">Slaptažodis neatitinka pirminio slaptažodžio.</p>
+            </div>
+            <div *ngIf="submitted && registrationForm.hasError('passwordsNotSame') "class="text-danger">
+                <p>Slaptažodis neatitinka pirminio slaptažodžio.</p>
             </div>
         </div>
         <div class="form-check d-flex justify-content-center mb-5">

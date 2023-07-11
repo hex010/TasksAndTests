@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from '../custom.validators';
 
 @Component({
   selector: 'app-register',
@@ -19,9 +20,11 @@ export class RegisterComponent {
     this.registrationForm = this.formBuilder.group({
         username: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^(?=.*[a-zA-Z])(?=.*[0-9])/)]], ///^(?=.*[a-zA-Z])(?=.*[0-9])/ - at least 1 number and 1 letter
-        password2: ['', [Validators.required, matchPasswords('password', 'password2')]],
-        agreement: ['', Validators.required]
+        password: ['', [Validators.required, Validators.minLength(5), CustomValidators.atLeastOneLetterAndNumber]],
+        password2: ['', Validators.required],
+        agreement: ['', Validators.requiredTrue]
+    }, {
+      validator: [CustomValidators.matchPasswords('password', 'password2')]
     });
   }
 
@@ -32,18 +35,4 @@ export class RegisterComponent {
       return;
     }
   }
-}
-
-export function matchPasswords(passwordControlName1: string, passwordControlName2: string,) {
-  //grazina arrow funkcija, kuri argumente priima AbstractControl, kadangi validatoriai priima objekta tokio tipo
-  return (control: AbstractControl) => {
-    const password1 = control.parent?.get(passwordControlName1);
-    const password2 = control.parent?.get(passwordControlName2);
-
-    if (password1?.value !== password2?.value) {
-      return { passwordsNotSame: true };
-    }
-
-    return null; //validacija praejo sekmingai
-  };
 }
