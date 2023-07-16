@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
+import { LoginRequestModel } from '../models/authenticationModels/login-request.model';
 
 @Component({
   selector: 'app-login',
@@ -9,14 +11,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
   loginForm!: FormGroup; //! - not null
   submitted = false;
-  get f() { return this.loginForm.controls; }
+
   constructor( 
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _auth: AuthenticationService
   ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-        username: ['', [Validators.required, Validators.minLength(3)]],
+        email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^(?=.*[a-zA-Z])(?=.*[0-9])/)]] ///^(?=.*[a-zA-Z])(?=.*[0-9])/ - at least 1 number and 1 letter
     });
   }
@@ -27,5 +30,16 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
+
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+
+    const userData = new LoginRequestModel(email, password);
+
+    this._auth.loginUser(userData).subscribe({
+      error: (e) => { console.log(e) },
+      next: (n) => { console.log(n) },
+    });
+
   }
 }

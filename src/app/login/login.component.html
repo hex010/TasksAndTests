@@ -2,11 +2,11 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
       <h2 class="text-center text-white">Prisijungimo forma</h2>       
       <div class="mb-3">
-          <input type="text" class="form-control" formControlName="username" placeholder="Vartotojo vardas" required="required">
-          <div *ngIf="submitted && loginForm.controls['username'].errors" class="text-danger">
-            <p *ngIf="loginForm.get('username')?.hasError('required')">Vartotojo vardas yra privalomas.</p>
-            <p *ngIf="loginForm.get('username')?.hasError('minlength')">Vartotojo vardas turi būti ne trumpesnis nei 3 simboliai.</p>
-           </div>
+          <input type="email" class="form-control" formControlName="email" placeholder="El. paštas" required="required">
+          <div *ngIf="submitted && loginForm.controls['email'].errors" class="text-danger">
+              <p *ngIf="loginForm.get('email')?.hasError('required')">El. paštas yra privalomas.</p>
+              <p *ngIf="loginForm.get('email')?.hasError('email')">El. pašto formatas neteisingas.</p>
+          </div>
       </div>
       <div class="mb-3">
           <input type="password" class="form-control" formControlName="password" placeholder="Slaptažodis" required="required">
@@ -25,7 +25,7 @@
           <button type="submit" class="btn btn-primary w-100">Prisijungti</button>
       </div>
       <div>
-          <label class="float-start form-check-label text-white"><input type="checkbox"> Prisiminti mane</label>
+          <label class="float-start form-check-label text-white"><input type="checkbox" name="remember-me"> Prisiminti mane</label>
           <a href="#" class="float-end">Pamiršote slaptažodį?</a>
       </div>        
   </form>

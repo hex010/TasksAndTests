@@ -11,6 +11,8 @@ import { TestsComponent } from './tests/tests.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationService } from './services/authentication.service';
+import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +27,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
