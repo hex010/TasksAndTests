@@ -2,13 +2,6 @@
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmitRegister()">
         <h2 class="text-center text-white">Registracijos forma</h2>       
         <div class="mb-3">
-            <input type="text" class="form-control" formControlName="username" placeholder="Vartotojo vardas" required="required">
-            <div *ngIf="submitted && registrationForm.controls['username'].errors" class="text-danger">
-                <p *ngIf="registrationForm.get('username')?.hasError('required')">Vartotojo vardas yra privalomas.</p>
-                <p *ngIf="registrationForm.get('username')?.hasError('minlength')">Vartotojo vardas turi būti ne trumpesnis nei 3 simboliai.</p>
-            </div>
-        </div>
-        <div class="mb-3">
             <input type="email" class="form-control" formControlName="email" placeholder="El. paštas" required="required">
             <div *ngIf="submitted && registrationForm.controls['email'].errors" class="text-danger">
                 <p *ngIf="registrationForm.get('email')?.hasError('required')">El. paštas yra privalomas.</p>
@@ -30,6 +23,18 @@
             </div>
             <div *ngIf="submitted && registrationForm.hasError('passwordsNotSame') "class="text-danger">
                 <p>Slaptažodis neatitinka pirminio slaptažodžio.</p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" formControlName="firstname" placeholder="Vardas" required="required">
+            <div *ngIf="submitted && registrationForm.controls['firstname'].errors" class="text-danger">
+                <p *ngIf="registrationForm.get('firstname')?.hasError('required')">Vardas yra privalomas.</p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" formControlName="lastname" placeholder="Pavardė" required="required">
+            <div *ngIf="submitted && registrationForm.controls['lastname'].errors" class="text-danger">
+                <p *ngIf="registrationForm.get('lastname')?.hasError('required')">Pavardė yra privaloma.</p>
             </div>
         </div>
         <div class="form-check d-flex justify-content-center mb-5">

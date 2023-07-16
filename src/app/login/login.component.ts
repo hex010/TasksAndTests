@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { LoginRequestModel } from '../models/authenticationModels/login-request.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent {
 
   constructor( 
     private formBuilder: FormBuilder,
-    private _auth: AuthenticationService
+    private _auth: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -37,8 +39,11 @@ export class LoginComponent {
     const userData = new LoginRequestModel(email, password);
 
     this._auth.loginUser(userData).subscribe({
-      error: (e) => { console.log(e) },
-      next: (n) => { console.log(n) },
+      error: err => { console.log(err) },
+      next: response => { 
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/'])
+      },
     });
 
   }

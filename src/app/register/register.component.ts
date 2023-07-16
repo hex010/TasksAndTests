@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../custom.validators';
+import { RegisterRequestModel } from '../models/authenticationModels/register-request.model';
+import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,15 +16,18 @@ export class RegisterComponent {
   submitted = false;
 
   constructor( 
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _auth: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
-        username: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(5), CustomValidators.atLeastOneLetterAndNumber]],
         password2: ['', Validators.required],
+        firstname: ['', Validators.required],
+        lastname: ['', Validators.required],
         agreement: ['', Validators.requiredTrue]
     }, {
       validator: [CustomValidators.matchPasswords('password', 'password2')]
@@ -34,5 +40,21 @@ export class RegisterComponent {
     if (this.registrationForm.invalid) {
       return;
     }
+
+    const email = this.registrationForm.value.email;
+    const password = this.registrationForm.value.password;
+    const firstname = this.registrationForm.value.firstname;
+    const lastname = this.registrationForm.value.lastname;
+
+    const userData = new RegisterRequestModel(email, password, firstname, lastname);
+
+    this._auth.registerUser(userData).subscribe({
+      error: err => { console.log(err) },
+      next: response => { 
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/'])
+      },
+    });
+
   }
 }

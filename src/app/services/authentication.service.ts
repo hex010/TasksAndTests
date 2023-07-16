@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { LoginRequestModel } from "../models/authenticationModels/login-request.model";
 import { RegisterRequestModel } from "../models/authenticationModels/register-request.model";
+import { AuthResponseInterface } from "../models/authenticationModels/auth-response.interface";
 
 @Injectable()
 export class AuthenticationService {
@@ -11,10 +12,10 @@ export class AuthenticationService {
     constructor(private http: HttpClient) {}
 
     registerUser(userData: RegisterRequestModel) {
-        return this.http.post(this.registerUrl, userData);
+        return this.http.post<AuthResponseInterface>(this.registerUrl, userData);
     }
 
     loginUser(userData: LoginRequestModel) {
-        return this.http.post(this.loginUrl, userData);
+        return this.http.post<AuthResponseInterface>(this.loginUrl, userData);
     }
 }
