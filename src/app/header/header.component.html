@@ -15,10 +15,13 @@
         <h3 class="mt-auto mb-auto text-white">Įvairių užduočių svetainė</h3>
 
         <div class="d-flex">
-          <button [routerLink]="['/login']" type="button" class="btn btn-outline-light me-2">Prisijungti</button>
-          <button [routerLink]="['/register']" type="button" class="btn btn-warning">Registruotis</button>
 
-          <div class="dropdown ms-2 me-2">
+          <div *ngIf="!_authService.isLoggedIn()">
+            <button [routerLink]="['/login']" type="button" class="btn btn-outline-light me-2">Prisijungti</button>
+            <button [routerLink]="['/register']" type="button" class="btn btn-warning">Registruotis</button>
+          </div>
+
+          <div class="dropdown ms-2 me-2" *ngIf="_authService.isLoggedIn()">
             <a class="dropdown-toggle text-decoration-none" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="assets/images/default-profile.png" width="40" height="40" class="rounded-circle">
                 <span class="text-uppercase">Profilis</span>
@@ -26,7 +29,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="#"> <i class="bi bi-person-fill"></i>Mano profilis</a></li>
               <li><a class="dropdown-item" href="#"> <i class="bi bi-gear-fill"></i>Nustatymai</a></li>
-              <li><a class="dropdown-item" href="#"> <i class="bi bi-door-open-fill"></i>Atsijungti</a></li>
+              <li (click)="_authService.logout()"><a class="dropdown-item" href="#"> <i class="bi bi-door-open-fill"></i>Atsijungti</a></li>
             </ul>
           </div>
 
