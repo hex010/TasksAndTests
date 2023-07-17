@@ -18,4 +18,12 @@ export class AuthenticationService {
     loginUser(userData: LoginRequestModel) {
         return this.http.post<AuthResponseInterface>(this.loginUrl, userData);
     }
+
+    isLoggedIn() {
+        return !!localStorage.getItem('token'); // jeigu tokenas egzistuoja, grazins true, priesingai - false.
+    }
+
+    getToken() {
+        return localStorage.getItem('token')
+    }
 }
