@@ -7,8 +7,8 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthenticationService {
-    private registerUrl = "http://localhost:8080/api/v1/register";
-    private loginUrl = "http://localhost:8080/api/v1/login";
+    private registerUrl = "http://192.168.0.187:8080/api/v1/register";
+    private loginUrl = "http://192.168.0.187:8080/api/v1/login";
 
     constructor(private http: HttpClient, private router: Router) {}
 

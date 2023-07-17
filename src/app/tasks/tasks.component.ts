@@ -13,13 +13,15 @@ export class TasksComponent {
   ) {}
 
   testAPI(){
-    this.http.get<String>('http://localhost:8080/api/v1/hiuser').subscribe({
-      next: (data) => {
-        console.log(data);
+    this.http.get('http://192.168.0.187:8080/api/v1/hiuser', { responseType: 'text' }).subscribe({
+      next: (message) => {
+        alert(message)
       },
       error: (error) => {
+        alert("error");
         console.log(error);
       }
     });
   }
+
 }
