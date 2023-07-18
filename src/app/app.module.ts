@@ -14,6 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { MyProfileService } from './services/my-profile.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     TasksComponent,
     TestsComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     HttpClientModule
   ],
   providers: [
+    MyProfileService,
     AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,

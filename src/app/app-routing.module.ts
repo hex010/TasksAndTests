@@ -6,13 +6,15 @@ import { TasksComponent } from './tasks/tasks.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { authGuard } from './services/auth.guard';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'tests', component:TestsComponent},
   {path: 'tasks', component:TasksComponent, canActivate: [authGuard]},
   {path: 'login', component:LoginComponent},
-  {path: 'register', component:RegisterComponent}
+  {path: 'register', component:RegisterComponent},
+  {path: 'profile', component:MyProfileComponent, canActivate: [authGuard]}
 ];
 
 @NgModule({

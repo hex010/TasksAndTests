@@ -27,9 +27,9 @@
                 <span class="text-uppercase">Profilis</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#"> <i class="bi bi-person-fill"></i>Mano profilis</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/profile']"> <i class="bi bi-person-fill"></i>Mano profilis</a></li>
               <li><a class="dropdown-item" href="#"> <i class="bi bi-gear-fill"></i>Nustatymai</a></li>
-              <li (click)="_authService.logout()"><a class="dropdown-item" href="#"> <i class="bi bi-door-open-fill"></i>Atsijungti</a></li>
+              <li><a class="dropdown-item" href="#" (click)="_authService.logout()"> <i class="bi bi-door-open-fill"></i>Atsijungti</a></li>
             </ul>
           </div>
 

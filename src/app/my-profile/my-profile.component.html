@@ -1,0 +1,31 @@
+<div class="my-profile-form">
+    <form [formGroup]="myProfileForm" (ngSubmit)="onSubmitUpdate()">
+        <h2 class="text-center text-white">Mano paskyra</h2>       
+        <div class="mb-3">
+            <input type="email" class="form-control" formControlName="email" placeholder="El. paštas" [readOnly]="true">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" formControlName="firstname" placeholder="Vardas" required="required">
+            <div *ngIf="myProfileForm.controls['firstname'].errors" class="text-danger">
+                <p *ngIf="myProfileForm.get('firstname')?.hasError('required')">Vardas yra privalomas.</p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" formControlName="lastname" placeholder="Pavardė" required="required">
+            <div *ngIf="myProfileForm.controls['lastname'].errors" class="text-danger">
+                <p *ngIf="myProfileForm.get('lastname')?.hasError('required')">Pavardė yra privaloma.</p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <select formControlName="selectedGender" class="form-select">
+                <option *ngFor="let gender of genders " [value]="gender">
+                  {{gender}}
+                </option>
+            </select>
+        </div>
+        <div style="text-align: center;">
+            <button [disabled]="myProfileForm.pristine" type="submit" class="btn btn-primary w-50">Atnaujinti</button>
+            <!-- arba  style="display: block; margin: auto;" mygtukai, o div be stiliaus-->
+        </div>
+    </form>
+  </div>
