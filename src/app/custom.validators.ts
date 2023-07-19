@@ -25,4 +25,17 @@ export class CustomValidators {
           return { atLeastOneLetterAndNumber: true }; // validacija nepraejo
         }
       }
+
+      static onlyLetters(control: FormControl): ValidationErrors | null {
+        const value: string = control.value;
+        if(!value) return null;
+        
+        const containsOnlyLetters = /^[A-Za-z]+$/.test(value);
+    
+        if (containsOnlyLetters) {
+          return null; // validacija praejo
+        } else {
+          return { onlyLetters: true }; // validacija nepraejo
+        }
+      }
 }

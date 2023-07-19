@@ -23,11 +23,11 @@ export class RegisterComponent {
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required, Validators.email, Validators.maxLength(70)]],
         password: ['', [Validators.required, Validators.minLength(5), CustomValidators.atLeastOneLetterAndNumber]],
         password2: ['', Validators.required],
-        firstname: ['', Validators.required],
-        lastname: ['', Validators.required],
+        firstname: ['', [Validators.required, CustomValidators.onlyLetters, Validators.maxLength(50)]],
+        lastname: ['', [Validators.required, CustomValidators.onlyLetters, Validators.maxLength(50)]],
         agreement: ['', Validators.requiredTrue]
     }, {
       validator: [CustomValidators.matchPasswords('password', 'password2')]

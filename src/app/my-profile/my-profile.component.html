@@ -8,12 +8,16 @@
             <input type="text" class="form-control" formControlName="firstname" placeholder="Vardas" required="required">
             <div *ngIf="myProfileForm.controls['firstname'].errors" class="text-danger">
                 <p *ngIf="myProfileForm.get('firstname')?.hasError('required')">Vardas yra privalomas.</p>
+                <p *ngIf="myProfileForm.get('firstname')?.hasError('maxlength')">Vardo ilgis neturi viršyti 50 simbolių.</p>
+                <p *ngIf="myProfileForm.get('firstname')?.hasError('onlyLetters')">Vardas turi turėti savyje tik raides.</p>
             </div>
         </div>
         <div class="mb-3">
             <input type="text" class="form-control" formControlName="lastname" placeholder="Pavardė" required="required">
             <div *ngIf="myProfileForm.controls['lastname'].errors" class="text-danger">
                 <p *ngIf="myProfileForm.get('lastname')?.hasError('required')">Pavardė yra privaloma.</p>
+                <p *ngIf="myProfileForm.get('lastname')?.hasError('maxlength')">Pavardės ilgis neturi viršyti 50 simbolių.</p>
+                <p *ngIf="myProfileForm.get('lastname')?.hasError('onlyLetters')">Pavardė turi turėti savyje tik raides.</p>
             </div>
         </div>
         <div class="mb-3">

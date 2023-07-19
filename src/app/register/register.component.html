@@ -6,6 +6,7 @@
             <div *ngIf="submitted && registrationForm.controls['email'].errors" class="text-danger">
                 <p *ngIf="registrationForm.get('email')?.hasError('required')">El. paštas yra privalomas.</p>
                 <p *ngIf="registrationForm.get('email')?.hasError('email')">El. pašto formatas neteisingas.</p>
+                <p *ngIf="registrationForm.get('email')?.hasError('maxlength')">El. pašto ilgis neturi viršyti 70 simbolių.</p>
             </div>
         </div>
         <div class="mb-3">
@@ -29,12 +30,16 @@
             <input type="text" class="form-control" formControlName="firstname" placeholder="Vardas" required="required">
             <div *ngIf="submitted && registrationForm.controls['firstname'].errors" class="text-danger">
                 <p *ngIf="registrationForm.get('firstname')?.hasError('required')">Vardas yra privalomas.</p>
+                <p *ngIf="registrationForm.get('firstname')?.hasError('maxlength')">Vardo ilgis neturi viršyti 50 simbolių.</p>
+                <p *ngIf="registrationForm.get('firstname')?.hasError('onlyLetters')">Vardas turi turėti savyje tik raides.</p>
             </div>
         </div>
         <div class="mb-3">
             <input type="text" class="form-control" formControlName="lastname" placeholder="Pavardė" required="required">
             <div *ngIf="submitted && registrationForm.controls['lastname'].errors" class="text-danger">
                 <p *ngIf="registrationForm.get('lastname')?.hasError('required')">Pavardė yra privaloma.</p>
+                <p *ngIf="registrationForm.get('lastname')?.hasError('maxlength')">Pavardės ilgis neturi viršyti 50 simbolių.</p>
+                <p *ngIf="registrationForm.get('lastname')?.hasError('onlyLetters')">Pavardė turi turėti savyje tik raides.</p>
             </div>
         </div>
         <div class="form-check d-flex justify-content-center mb-5">

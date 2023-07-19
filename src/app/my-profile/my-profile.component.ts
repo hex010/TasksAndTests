@@ -4,6 +4,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Gender } from '../models/Gender.enum';
 import { MyProfileService } from '../services/my-profile.service';
 import { MyProfileModel } from '../models/my-profile.model';
+import { CustomValidators } from '../custom.validators';
 
 @Component({
   selector: 'app-my-profile',
@@ -17,9 +18,9 @@ export class MyProfileComponent {
   
   ngOnInit() {
     this.myProfileForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(70)]],
+      firstname: ['', [Validators.required, CustomValidators.onlyLetters, Validators.maxLength(50)]],
+      lastname: ['', [Validators.required, CustomValidators.onlyLetters, Validators.maxLength(50)]],
       selectedGender: [Gender.UNDISCLOSED, Validators.required]
   });
 
