@@ -15,7 +15,8 @@ export class MyProfileComponent {
   myProfileForm!: FormGroup; //! - not null
   submitted = false;
   genders = Object.values(Gender);
-  
+  public profileErrors: string[] = [];
+
   ngOnInit() {
     this.myProfileForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(70)]],
@@ -56,7 +57,15 @@ export class MyProfileComponent {
     const myProfileModel = new MyProfileModel(email, firstname, lastname, gender);
 
     this.profileService.updateProfileData(myProfileModel).subscribe({
-      error: err => { console.log(err); window.alert('error'); },
+      error: err => { 
+        this.profileErrors = [];
+        if(err.error.errors)
+          err.error.errors.forEach((errorMessage: string) => {
+            this.profileErrors.push(errorMessage);
+          });
+        else
+          this.profileErrors.push("Unknown profile error"); 
+       },
       next: response => { 
         window.alert(response)
       }

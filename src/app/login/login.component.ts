@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm!: FormGroup; //! - not null
   submitted = false;
+  public loginErrors: string[] = [];
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -39,7 +40,15 @@ export class LoginComponent {
     const userData = new LoginRequestModel(email, password);
 
     this._auth.loginUser(userData).subscribe({
-      error: err => { console.log(err) },
+      error: err => { 
+        this.loginErrors = [];
+        if(err.error.errors)
+          err.error.errors.forEach((errorMessage: string) => {
+            this.loginErrors.push(errorMessage);
+          });
+        else
+          this.loginErrors.push("Unknown login error"); 
+      },
       next: response => { 
         localStorage.setItem('token', response.token);
         this.router.navigate(['/'])

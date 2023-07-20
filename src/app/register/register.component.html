@@ -1,6 +1,7 @@
 <div class="register-form">
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmitRegister()">
-        <h2 class="text-center text-white">Registracijos forma</h2>       
+        <h2 class="text-center text-white">Registracijos forma</h2>
+        <p *ngFor="let error of registrationErrors" class="text-danger text-center">{{ error }}</p>
         <div class="mb-3">
             <input type="email" class="form-control" formControlName="email" placeholder="El. paštas" required="required">
             <div *ngIf="submitted && registrationForm.controls['email'].errors" class="text-danger">

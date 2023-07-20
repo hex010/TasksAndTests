@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   registrationForm!: FormGroup; //! - not null
   submitted = false;
+  public registrationErrors: string[] = [];
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -49,7 +50,15 @@ export class RegisterComponent {
     const userData = new RegisterRequestModel(email, password, firstname, lastname);
 
     this._auth.registerUser(userData).subscribe({
-      error: err => { console.log(err) },
+      error: err => { 
+        this.registrationErrors = [];
+        if(err.error.errors)
+          err.error.errors.forEach((errorMessage: string) => {
+            this.registrationErrors.push(errorMessage);
+          });
+        else
+          this.registrationErrors.push("Unknown login error"); 
+       },
       next: response => { 
         localStorage.setItem('token', response.token);
         this.router.navigate(['/'])

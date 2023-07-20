@@ -1,6 +1,7 @@
 <div class="my-profile-form">
     <form [formGroup]="myProfileForm" (ngSubmit)="onSubmitUpdate()">
-        <h2 class="text-center text-white">Mano paskyra</h2>       
+        <h2 class="text-center text-white">Mano paskyra</h2>
+        <p *ngFor="let error of profileErrors" class="text-danger text-center">{{ error }}</p>
         <div class="mb-3">
             <input type="email" class="form-control" formControlName="email" placeholder="El. paštas" [readOnly]="true">
         </div>
