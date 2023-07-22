@@ -16,6 +16,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { MyProfileService } from './services/my-profile.service';
+import { QuizService } from './services/quiz.service';
+import { QuizpageComponent } from './quizpage/quizpage.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { MyProfileService } from './services/my-profile.service';
     TestsComponent,
     RegisterComponent,
     HomeComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    QuizpageComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { MyProfileService } from './services/my-profile.service';
   ],
   providers: [
     MyProfileService,
+    QuizService,
     AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,

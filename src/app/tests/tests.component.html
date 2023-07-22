@@ -1,1 +1,23 @@
-<button class="btn btn-primary" (click)="testAPIrandom()">Click random</button>
+<div class="container pt-3 pb-3">
+    
+    <div *ngFor="let quiz of quizzes" class="quiz text-center border border-secondary pb-2">
+        <img src="assets/images/quiz-profile.jpg" class="image-profile" height="200">
+        <h2>{{ quiz.header }}</h2>
+        <h4>{{ quiz.description }}</h4>
+
+        <div class="quiz-footer">
+            <div class="likes-dislikes">
+                <div class="likes">
+                    <img src="assets/images/thumb-up.png">
+                    <span>{{ quiz.likes }}</span>
+                </div>
+                <div class="dislikes">
+                    <img src="assets/images/thumb-down.png">
+                    <span>{{ quiz.dislikes }}</span>
+                </div>
+            </div>
+            <button class="btn btn-success" (click)="startQuiz(quiz.id)">Pradėti dabar</button>
+        </div>
+    </div>
+
+</div>

@@ -1,5 +1,7 @@
-import { HttpClient  } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Quiz } from '../models/quiz.model';
+import { QuizService } from '../services/quiz.service';
+import { JwtUtils } from '../models/jwt.util';
 
 @Component({
   selector: 'app-tests',
@@ -7,19 +9,32 @@ import { Component } from '@angular/core';
   styleUrls: ['./tests.component.scss']
 })
 export class TestsComponent {
-  constructor( 
-    private http: HttpClient
-) {}
 
-  testAPIrandom(){
-    this.http.get('http://192.168.0.187:8080/api/v1/hirandom', { responseType: 'text' }).subscribe({
-      next: (message) => {
-        alert(message)
+  quizzes: Quiz[] = [];
+  public quizErrors : string[] = [];
+
+  constructor (private quizService: QuizService) {}
+
+  ngOnInit() {
+    this.quizService.getBasicQuizzes().subscribe({
+      error: err => { 
+        this.quizErrors = [];
+        if(err.error.errors)
+          err.error.errors.forEach((errorMessage: string) => {
+            this.quizErrors.push(errorMessage);
+          });
+        else
+          this.quizErrors.push("Unknown quiz error"); 
       },
-      error: (error) => {
-        alert("error");
-        console.log(error);
-      }
+      next: response => { 
+        this.quizzes = response
+      },
     });
   }
+
+  startQuiz(quizid : number) {
+    const userId = JwtUtils.extractIdFromToken();
+    
+  }
+
 }

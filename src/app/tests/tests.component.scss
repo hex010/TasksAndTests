@@ -1,0 +1,31 @@
+.container {
+    background-color: antiquewhite;
+    max-width: 40% !important;
+    position: relative;
+    margin-top: 1%;
+}
+
+.image-profile {
+    width: 100%;
+}
+
+.likes-dislikes img {
+   //atitraukiams nuo img ir teksto
+    margin-right: 5px;
+}
+
+
+//quiz footer
+
+.quiz-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.likes, .dislikes {
+    display: inline-block; //likes ir dislikes vienoje linijoje
+    margin-right: 20px; //atitraukimas tarp likes ir dislikes 
+}
