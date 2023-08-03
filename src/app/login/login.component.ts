@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { LoginRequestModel } from '../models/authenticationModels/login-request.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  returnUrl!: string;
   loginForm!: FormGroup; //! - not null
   submitted = false;
   public loginErrors: string[] = [];
@@ -17,10 +18,15 @@ export class LoginComponent {
   constructor( 
     private formBuilder: FormBuilder,
     private _auth: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'] || '/';
+    });
+    
     this.loginForm = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^(?=.*[a-zA-Z])(?=.*[0-9])/)]] ///^(?=.*[a-zA-Z])(?=.*[0-9])/ - at least 1 number and 1 letter
@@ -51,7 +57,7 @@ export class LoginComponent {
       },
       next: response => { 
         localStorage.setItem('token', response.token);
-        this.router.navigate(['/'])
+        this.router.navigateByUrl(this.returnUrl);
       },
     });
 

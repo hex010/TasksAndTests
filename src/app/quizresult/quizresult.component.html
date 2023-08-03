@@ -1,0 +1,5 @@
+<div class="quiz-result-container text-center">
+    <h2 class="text-white">Testo rezultatas: {{quizResult.mark}}/10</h2>
+    <h4 class="text-white">Testas laikytas {{ quizResult.resultDate | date: "yyyy.MM.dd"}}</h4>
+    <button class="btn btn-info" [routerLink]="['/tests']">Grįžti</button>
+</div>

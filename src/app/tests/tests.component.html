@@ -1,23 +1,48 @@
-<div class="container pt-3 pb-3">
-    
-    <div *ngFor="let quiz of quizzes" class="quiz text-center border border-secondary pb-2">
-        <img src="assets/images/quiz-profile.jpg" class="image-profile" height="200">
-        <h2>{{ quiz.header }}</h2>
-        <h4>{{ quiz.description }}</h4>
-
-        <div class="quiz-footer">
-            <div class="likes-dislikes">
-                <div class="likes">
-                    <img src="assets/images/thumb-up.png">
-                    <span>{{ quiz.likes }}</span>
-                </div>
-                <div class="dislikes">
-                    <img src="assets/images/thumb-down.png">
-                    <span>{{ quiz.dislikes }}</span>
-                </div>
-            </div>
-            <button class="btn btn-success" (click)="startQuiz(quiz.id)">Pradėti dabar</button>
+<div class="container pt-3 pb-2">
+    <div class="d-flex justify-content-between">
+        <div>
+            <input #searchInput class="form-control" type="search" placeholder="Ieškoti" (keyup)="onKeyUpUpdateSearch(searchInput.value)" (search)="handleSearchClear()">
+        </div>
+        <div class="dropdown mb-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-sort-quizzes" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ selectedSortOption }}
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdown-sort-quizzes">
+            <li><span class="dropdown-item" (click)="sortQuizzes(1)">Pirmiau naujausi</span></li>
+            <li><span class="dropdown-item" (click)="sortQuizzes(2)">Pirmiau seniausi</span></li>
+            <li><span class="dropdown-item" (click)="sortQuizzes(3)">Geriausiai įvertinti</span></li>
+            </ul>
         </div>
     </div>
 
+    <div *ngIf="quizzes.length > 0; else noResults">
+        <div *ngFor="let quiz of quizzes" class="quiz text-center border border-secondary pb-2 mb-2">
+            <img src="assets/images/quiz-profile.jpg" class="image-profile" height="200">
+            <h2>{{ quiz.header }}</h2>
+            <h4>{{ quiz.description }}</h4>
+
+            <div class="quiz-footer">
+                <div class="likes-dislikes">
+                    <div class="likes">
+                        <img src="assets/images/thumb-up.png">
+                        <span>{{ quiz.likes }}</span>
+                    </div>
+                    <div class="dislikes">
+                        <img src="assets/images/thumb-down.png">
+                        <span>{{ quiz.dislikes }}</span>
+                    </div>
+                </div>
+                <button *ngIf="!quiz.solved" class="btn btn-success" [routerLink]="['/test', quiz.id]">Pradėti dabar</button>
+                <button *ngIf="quiz.solved" class="btn btn-info" [routerLink]="['/test', quiz.id, 'result']">Peržiūrėti rezultatą</button>
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #noResults>
+        <h2 *ngIf="!loading" class="text-center mt-4 mb-4">Duomenų nėra</h2>
+    </ng-template>
+    <div *ngIf="loading">
+        <h2 class="text-center mt-4 mb-4">Kraunama...</h2>
+    </div>
 </div>

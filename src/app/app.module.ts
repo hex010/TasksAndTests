@@ -18,6 +18,10 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { MyProfileService } from './services/my-profile.service';
 import { QuizService } from './services/quiz.service';
 import { QuizpageComponent } from './quizpage/quizpage.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { QuizResolver } from './resolvers/quiz.resolver';
+import { QuizresultComponent } from './quizresult/quizresult.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { QuizpageComponent } from './quizpage/quizpage.component';
     RegisterComponent,
     HomeComponent,
     MyProfileComponent,
-    QuizpageComponent
+    QuizpageComponent,
+    ErrorPageComponent,
+    QuizresultComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +47,8 @@ import { QuizpageComponent } from './quizpage/quizpage.component';
   providers: [
     MyProfileService,
     QuizService,
+    QuizResolver,
+    AuthGuard,
     AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -29,3 +29,7 @@
     display: inline-block; //likes ir dislikes vienoje linijoje
     margin-right: 20px; //atitraukimas tarp likes ir dislikes 
 }
+
+.dropdown-menu li {
+    cursor: pointer;
+}
