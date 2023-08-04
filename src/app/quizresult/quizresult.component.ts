@@ -11,6 +11,7 @@ import { QuizResult } from '../models/QuizResult.interface';
 export class QuizresultComponent {
   private quizId!: string;
   public quizResult! : QuizResult;
+  public errorMessage : string = "";
 
   constructor( 
     private quizService : QuizService,
@@ -29,7 +30,10 @@ export class QuizresultComponent {
     });
 
     this.quizService.getQuizResult(this.quizId).subscribe({
-      error: err => { console.log(err) },
+      error: err => { 
+        if(err.error.message)
+          this.errorMessage = err.error.message;
+       },
       next: response => { 
         this.quizResult = response;
       }

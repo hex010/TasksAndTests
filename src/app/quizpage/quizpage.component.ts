@@ -13,10 +13,10 @@ import { QuizResult } from '../models/QuizResult.interface';
 export class QuizpageComponent {
   constructor(private route: ActivatedRoute, private router: Router, private quizService : QuizService) {}
 
-  quiz!: Quiz;
+  public quiz!: Quiz;
+  public errorMessage : string = "";
   public currentQuestion: number = 0;
   public selectedAnswers: number[] = [];
-  public errorMessage: string = '';
   public quizResult! : QuizResult;
 
   public totalQuestions : number = 0;
@@ -84,7 +84,8 @@ export class QuizpageComponent {
     
     this.quizService.finishQuizAndGetResults(quizFinish).subscribe({
       error: err => { 
-        console.log("quiz finish error")
+        if(err.error.message)
+          this.errorMessage = err.error.message;
       },
       next: response => {
         this.router.navigate(['result'], {relativeTo: this.route});
@@ -103,7 +104,8 @@ export class QuizpageComponent {
     
     this.quizService.finishQuizAndGetResults(quizFinish).subscribe({
       error: err => { 
-        console.log("quiz finish error")
+        if(err.error.message)
+          this.errorMessage = err.error.message;
       },
       next: response => {
         this.router.navigate(['result'], {relativeTo: this.route});

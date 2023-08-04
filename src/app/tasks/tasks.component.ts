@@ -7,8 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent {
+  public errorMessage : String = "";
 
-    constructor( 
+  constructor( 
       private http: HttpClient
   ) {}
 
@@ -17,9 +18,9 @@ export class TasksComponent {
       next: (message) => {
         alert(message)
       },
-      error: (error) => {
-        alert("error");
-        console.log(error);
+      error: (err) => {
+        if(err.error.message)
+          this.errorMessage = err.error.message;
       }
     });
   }

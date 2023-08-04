@@ -7,10 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent {
-  errorMessage: string;
+  public errorMessage: string;
 
   constructor(private router: Router) {
-    const currentNavigation = this.router.getCurrentNavigation();
     this.errorMessage = this.router.getCurrentNavigation()?.extras?.state?.['message'] || "Puslapis nerastas";
   }
 }

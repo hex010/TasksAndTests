@@ -12,10 +12,15 @@ import { CustomValidators } from '../custom.validators';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent {
-  myProfileForm!: FormGroup; //! - not null
-  submitted = false;
-  genders = Object.values(Gender);
+  public myProfileForm!: FormGroup; //! - not null
+  public genders = Object.values(Gender);
   public profileErrors: string[] = [];
+
+  constructor( 
+    private formBuilder: FormBuilder,
+    private _auth: AuthenticationService,
+    private profileService: MyProfileService
+  ) {}
 
   ngOnInit() {
     this.myProfileForm = this.formBuilder.group({
@@ -25,8 +30,8 @@ export class MyProfileComponent {
       selectedGender: [Gender.UNDISCLOSED, Validators.required]
   });
 
-    this.profileService.getProfileData().subscribe({
-      error: err => { console.log(err) },
+  this.profileService.getProfileData().subscribe({
+    error: err => { console.log(err) },
       next: response => { 
         this.myProfileForm.patchValue({
           email: response.email,
@@ -37,12 +42,6 @@ export class MyProfileComponent {
       }
     });
   }
-
-  constructor( 
-    private formBuilder: FormBuilder,
-    private _auth: AuthenticationService,
-    private profileService: MyProfileService
-  ) {}
 
   onSubmitUpdate() {
     if (this.myProfileForm.invalid) {
@@ -70,7 +69,6 @@ export class MyProfileComponent {
         window.alert(response)
       }
     });
-
   }
   
 }

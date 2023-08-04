@@ -16,7 +16,7 @@ export class TestsComponent {
   private sortOrder : string = "";
 
   public quizzes: Quiz[] = [];
-  public quizErrors : string[] = [];
+  public errorMessage : String = "";
 
   private searchValue = "";
   private searchSubject = new Subject<string>();
@@ -85,13 +85,8 @@ export class TestsComponent {
     this.quizService.getQuizzes(sortField, sortOrder, searchField).subscribe({
       error: err => { 
         this.loading = false;
-        this.quizErrors = [];
-        if(err.error.errors)
-          err.error.errors.forEach((errorMessage: string) => {
-            this.quizErrors.push(errorMessage);
-          });
-        else
-          this.quizErrors.push("Unknown quiz error"); 
+        if(err.error.message)
+          this.errorMessage = err.error.message;
       },
       next: response => {
         this.loading = false;

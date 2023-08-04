@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 
 export class RegisterComponent {
-  registrationForm!: FormGroup; //! - not null
-  submitted = false;
+  public registrationForm!: FormGroup; //! - not null
+  public submitted = false;
   public registrationErrors: string[] = [];
 
   constructor( 

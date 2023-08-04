@@ -10,9 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  returnUrl!: string;
-  loginForm!: FormGroup; //! - not null
-  submitted = false;
+  private returnUrl!: string;
+  public loginForm!: FormGroup; //! - not null
+  public submitted = false;
   public loginErrors: string[] = [];
 
   constructor( 
