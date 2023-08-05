@@ -3,25 +3,32 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
+  let fixture: ComponentFixture<HeaderComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
       providers: [AuthenticationService],
-      imports: [HttpClientModule]
+      imports: [HttpClientModule, RouterModule.forRoot([])]
     }).compileComponents();
+  });
 
-    const authService = TestBed.inject(AuthenticationService);
-    component = new HeaderComponent(authService);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HeaderComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-
+  it('should have AuthenticationService injected', () => {
+    expect(component._authService).toBeTruthy();
+    expect(component._authService instanceof AuthenticationService).toBeTruthy();
+  });
 });

@@ -8,15 +8,20 @@ describe('ErrorPageComponent', () => {
   let fixture: ComponentFixture<ErrorPageComponent>;
   let router: Router;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ErrorPageComponent],
       imports: [RouterTestingModule],
-    });
+    }).compileComponents();
 
+    router = TestBed.inject(Router);
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(ErrorPageComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
+    fixture.detectChanges();
   });
 
   it('should create', () => {

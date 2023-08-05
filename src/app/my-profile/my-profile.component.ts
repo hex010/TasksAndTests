@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../services/authentication.service';
 import { Gender } from '../models/Gender.enum';
 import { MyProfileService } from '../services/my-profile.service';
 import { MyProfileModel } from '../models/my-profile.model';
@@ -15,10 +14,10 @@ export class MyProfileComponent {
   public myProfileForm!: FormGroup; //! - not null
   public genders = Object.values(Gender);
   public profileErrors: string[] = [];
+  public errorMessage: string = "";
 
   constructor( 
     private formBuilder: FormBuilder,
-    private _auth: AuthenticationService,
     private profileService: MyProfileService
   ) {}
 
@@ -28,10 +27,10 @@ export class MyProfileComponent {
       firstname: ['', [Validators.required, CustomValidators.onlyLetters, Validators.maxLength(50)]],
       lastname: ['', [Validators.required, CustomValidators.onlyLetters, Validators.maxLength(50)]],
       selectedGender: [Gender.UNDISCLOSED, Validators.required]
-  });
+     });
 
-  this.profileService.getProfileData().subscribe({
-    error: err => { console.log(err) },
+    this.profileService.getProfileData().subscribe({
+      error: err => { this.errorMessage = err.error.message; },
       next: response => { 
         this.myProfileForm.patchValue({
           email: response.email,
@@ -64,7 +63,7 @@ export class MyProfileComponent {
           });
         else
           this.profileErrors.push("Unknown profile error"); 
-       },
+      },
       next: response => { 
         window.alert(response)
       }
